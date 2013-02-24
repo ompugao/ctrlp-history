@@ -27,7 +27,7 @@ function! ctrlp#history#init()
     for h in split(hist,"\n")[1:]
         call add(arranged_hist,matchlist(h,'\s*\d\+\s*\(.*\)')[1])
     endfor
-    return arranged_hist
+    return reverse(arranged_hist)
 endfunc
 
 function! ctrlp#history#accept(mode, str)
