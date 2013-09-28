@@ -36,7 +36,11 @@ function! ctrlp#history#search#accept(mode, str)
     call ctrlp#exit()
     echo a:str
     let @/ = a:str
-	normal! n
+    try
+        normal! n
+    catch /^Vim\%((\a\+)\)\=:E486/
+        "pattern not found
+    endtry
 endfunction
 
 function! ctrlp#history#search#exit()
