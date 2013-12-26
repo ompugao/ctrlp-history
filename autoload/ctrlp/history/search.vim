@@ -40,19 +40,30 @@ function! ctrlp#history#search#accept(mode, str)
         try
             normal! n
         catch /^Vim\%((\a\+)\)\=:E486/
-            "pattern not found
+            echohl ErrorMsg
+            exec 'echo "E486: Pattern not found: ' . @/ . '"'
+            echohl None
         endtry
     elseif a:mode == 't'
         if !exists("g:ctrlp_history_grepprg")
-          let g:ctrlp_history_grepprg="vimgrep %s **/*"
+            let g:ctrlp_history_grepprg="vimgrep %s **/*"
         endif
         let grepcmd = printf(g:ctrlp_history_grepprg,a:str)
         try
             exec grepcmd
         catch /^Vim\%((\a\+)\)\=:E480/
-            "pattern not found
+            echohl ErrorMsg
+            exec 'echo "E480: No match: ' . @/ . '"'
+            echohl None
         endtry
     endif
+    try
+        normal! n
+    catch /^Vim\%((\a\+)\)\=:E486/
+        echohl ErrorMsg
+        exec 'echo "E486: Pattern not found: ' . @/ . '"'
+        echohl None
+    endtry
 endfunction
 
 function! ctrlp#history#search#exit()
