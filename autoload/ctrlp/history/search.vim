@@ -46,7 +46,7 @@ function! ctrlp#history#search#accept(mode, str)
         endtry
     elseif a:mode == 't'
         if !exists("g:ctrlp_history_grepprg")
-            let g:ctrlp_history_grepprg="vimgrep %s **/*"
+            let g:ctrlp_history_grepprg="vimgrep '%s' **/*"
         endif
         let grepcmd = printf(g:ctrlp_history_grepprg,a:str)
         try
