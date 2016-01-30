@@ -57,13 +57,6 @@ function! ctrlp#history#search#accept(mode, str)
             echohl None
         endtry
     endif
-    try
-        normal! n
-    catch /^Vim\%((\a\+)\)\=:E486/
-        echohl ErrorMsg
-        exec 'echo "E486: Pattern not found: ' . @/ . '"'
-        echohl None
-    endtry
 endfunction
 
 function! ctrlp#history#search#exit()
